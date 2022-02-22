@@ -1,0 +1,95 @@
+Thanks, here is the revised text, all the changes are in sections a, b, and c...Data Structure
+Gene Names: col A
+Amplicon Length: col B
+Initial scoring: col C
+
+Best Pick Manual Score Examples: col D
+Manual Scoring Comments: col E
+
+Read Counts: col F “Read_Sum”
+Background Sum: col G “Bar_Sum”
+All Background Sum: col H “AllBgr_Sum”
+
+Original Order of Rows: col I “Original Order”
+
+Most genes appear 4 times in 4 consecutive rows (~17.6K out of 19.9K total genes in spreadsheet)
+
+The first 3 rows are testing different primer pairs and the goal is to find and label the best one.
+
+The fourth row is results from an older primer pair set used for comparison to see if the new ones are better. The gene name is purple for rows using these old primers for comparison. There is no entry in col C, G or H for old primer pair rows.
+
+GOALS:
+
+Find and label best primer set using criteria:
+
+Final score:
+
+1- best with read counts > 200 (in col. F Read_Sum)
+
+2-medium with counts 10-199 (in col. F Read_Sum)
+
+3-worst with counts 0-9 (in col. F Read_Sum)
+
+Put Final score in separate column on same row as best primer set; put any comments in adjacent column cell using abbreviations: L, AB, B, R (defined below)
+
+To pick best within sets:
+
+a. When there is only a single 1 score: pick this one as best, enter a 1
+b. When two or three primer sets get a 1 score (with all amplicon lengths 45-250):
+
+-pick the one with highest reads < 15000
+-if all sets with 1 score > 15000, take lowest, add AB (abundant) to comment column
+
+c. When two or three primer sets get a 1 score (with one or two amplicon lengths > 250):
+-if all sets with 1 score > 15000, take lowest, add AB (abundant) to comment column
+-if one or more sets have highest reads < 15000, pick best from these following these rules:
+-only take set with amplicon length > 250 if it is > 3X highest read of best set with amplicon length 45-250, 
+            otherwise take best from 45-250 amplicon length set(s)
+-if all amplicon lengths > 250, take one with highest reads
+-for all best picks, calculate total background as sum of col G & H background values,
+     if total background is > 20% of reads for best pick, exclude and take next best choice and enter B into comment column
+
+d. For sets with only scores of 2s and 3s:
+-for all 2s, pick one with highest reads, mark as 2
+-for mix of 2s and 3s, pick the 2 with highest reads, mark as 2
+-for all 3s, pick one with highest reads, mark as 3
+
+e. Compare to 4th set when available.
+-if 4th set > 3x the reads of the best pick based on above, then enter L into comment window (low signal) next to mark of best set as 1, 2 or 3….
+
+f. If only one row per gene, mark as 4, no further evaluation
+
+g. For some genes only 2 new primer pairs available (~850) with one old pair for comparison (total of 3 rows not 4),
+ if possible apply same rules to pick best one. If difficult, skip it and leave for manual scoring.
+h. For some genes only 1 new primer pairs available with one old pair for comparison (total of 2 rows not 4), 
+if possible apply same rules to score read counts. If difficult, skip it and leave for manual scoring.
+i. For some genes more than 3 primer pairs tested (~25), skip and leave for manual scoring
+
+
+
+Nikolas, it looks quite good so far. Here are some problems I found: 
+1)Please put the numerical score for each best set, 
+the MAX, in an adjacent column (Please see examples in the worksheet I have attached). ;
+ 2) For the best set (the MAX), if the Read_Sum number is 15000 or higher please put an "AB" in the comment column (see example in attached worksheet); 
+ 3) For the best set (the MAX), please compare to the comparison row (gene name in purple, no entry in column C, G or H),
+  if the comparison row Read_Sum number is 2X or higher more than the 
+  Read_Sum of the MAX number,
+   please enter an "L" in the comment column. 
+   NOTE: I have changed the criteria for "L" from
+    3X to 2X because I think you have not yet fully
+     put this filter into the algorithm and I hope it is OK to change; 
+     if not, keeping it as 3X is OK; 
+     4) when the best set is a 2 or 3, 
+     if the sum of background (columns G& H) is 20% or more of the MAX number, 
+     enter a "B" in the comment column.
+     If the best set is a 1, 
+     if the sum of background (columns G& H) is 20% or more of the MAX number,
+      choose the next best 1 set 
+      if available that does not have the sum 
+      of background (columns G& H) is 20% or 
+      more of the MAX number, 
+      if all the 1 sets have the sum of background (columns G& H) is 20% 
+      or more of the MAX number, 
+      pick the best one and put a "B" in the comments; 
+      
+      5) there were some sets that did not get any MAX scoring (see examples in attached sheet)... thank you....

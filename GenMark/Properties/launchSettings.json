@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GenMark": {
+      "commandName": "Project",
+      "commandLineArgs": "PrimerPerformanceforScoringV2.xlsx"
+    }
+  }
+}
